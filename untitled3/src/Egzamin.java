@@ -2,29 +2,29 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Egzamin {
-    public String nazwa_przedmiotu;
+    public String nazwaPrzedmiotu;
     protected LocalDate data;
-    protected LocalTime godzina_rozpoczecia;
-    protected LocalTime godzina_zakonczenia;
+    protected LocalTime godzinaRozpoczecia;
+    protected LocalTime godzinaZakoczenia;
 
-    public void start(LocalTime godzina_rozpoczecia) {
-        this.godzina_rozpoczecia = godzina_rozpoczecia;
+    public void start(LocalTime godzinaRozpoczecia) {
+        this.godzinaRozpoczecia = godzinaRozpoczecia;
     }
     public void stop() {
-        if (godzina_rozpoczecia == null) {
+        if (godzinaRozpoczecia == null) {
             throw new IllegalStateException("Nie ustawiono godziny rozpoczęcia egzaminu.");
         }
-        this.godzina_zakonczenia = godzina_rozpoczecia.plusMinutes(120);
+        this.godzinaZakoczenia = godzinaRozpoczecia.plusMinutes(120);
     }
 
-    public Egzamin(String nazwa_przedmiotu, LocalDate data) {
-        this.nazwa_przedmiotu = nazwa_przedmiotu;
+    public Egzamin(String nazwaPrzedmiotu, LocalDate data) {
+        this.nazwaPrzedmiotu = nazwaPrzedmiotu;
         this.data = data;
-        System.out.println("Utworzono egzamin: " + nazwa_przedmiotu);
+        System.out.println("Utworzono egzamin: " + nazwaPrzedmiotu);
     }
 
     public String getNazwa_przedmiotu() {
-        return nazwa_przedmiotu;
+        return nazwaPrzedmiotu;
     }
 
     public LocalDate getData() {
@@ -32,28 +32,28 @@ public class Egzamin {
     }
 
     public String getGodziny() {
-        return "Start: " + (godzina_rozpoczecia != null ? godzina_rozpoczecia : "brak") +
-                ", Stop: " + (godzina_zakonczenia != null ? godzina_zakonczenia : "brak");
+        return "Start: " + (godzinaRozpoczecia != null ? godzinaRozpoczecia : "brak") +
+                ", Stop: " + (godzinaZakoczenia != null ? godzinaZakoczenia : "brak");
     }
 }
-class Egz_praktyczny extends Egzamin{
+class egzPraktyczny extends Egzamin{
     public String forma;
     public String opis;
 
     @Override
     public void stop() {
-        if (godzina_rozpoczecia == null) {
+        if (godzinaRozpoczecia == null) {
             throw new IllegalStateException(
                     "Nie ustawiono godziny rozpoczęcia egzaminu."
             );
         }
 
-        this.godzina_zakonczenia =
-                godzina_rozpoczecia.plusMinutes(150);
+        this.godzinaZakoczenia =
+                godzinaRozpoczecia.plusMinutes(150);
     }
 
-    public Egz_praktyczny(String nazwa_przedmiotu, LocalDate data) {
-        super(nazwa_przedmiotu, data);
+    public egzPraktyczny(String nazwaPrzedmiotu, LocalDate data) {
+        super(nazwaPrzedmiotu, data);
 
     }
 
@@ -75,12 +75,12 @@ class Egz_praktyczny extends Egzamin{
 }
 class Main {
     public static void main(String[] args) {
-        Egzamin e_programowanie = new Egzamin("Programowanie aplikacji", LocalDate.of(2026, 10, 12));
-        e_programowanie.start(LocalTime.of(9, 0));
-        e_programowanie.stop();
-        System.out.println(e_programowanie.getGodziny());
+        Egzamin eProgramowanie = new Egzamin("Programowanie aplikacji", LocalDate.of(2026, 10, 12));
+        eProgramowanie.start(LocalTime.of(9, 0));
+        eProgramowanie.stop();
+        System.out.println(eProgramowanie.getGodziny());
         // Wynik: Start: 09:00, Stop: 11:00
-        Egz_praktyczny praktyczny = new Egz_praktyczny(
+        egzPraktyczny praktyczny = new egzPraktyczny(
                 "Programowanie aplikacji",
                 LocalDate.now()
         );
